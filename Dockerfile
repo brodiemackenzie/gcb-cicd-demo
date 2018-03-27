@@ -6,6 +6,6 @@ COPY package.json /hello/
 RUN npm install
 COPY . /hello/
 
-EXPOSE 3000
+EXPOSE 8081
 
 CMD ["npm", "start"]
