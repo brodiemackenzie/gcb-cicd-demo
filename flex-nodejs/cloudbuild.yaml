@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: 'flex-nodejs'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['test']
+  dir: 'flex-nodejs'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - app
+  - deploy
+  - --quiet
+  dir: 'flex-nodejs'
