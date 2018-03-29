@@ -1,15 +1,20 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
+  dir: 'flex'
 - name: 'gcr.io/cloud-builders/npm'
   args: ['test']
+  dir: 'flex'
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/hello_npm', '.']
+  dir: 'flex'
 - name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/brodiem-demo/hello_npm"]
+  dir: 'flex'
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - app
   - deploy
   - --quiet
   - --image-url=gcr.io/brodiem-demo/hello_npm
+  dir: 'flex'
