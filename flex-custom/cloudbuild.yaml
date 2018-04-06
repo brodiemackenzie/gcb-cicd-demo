@@ -9,12 +9,12 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/hello_npm', '.']
   dir: 'flex-custom'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/brodiem-demo/hello_npm"]
+  args: ["push", "gcr.io/$PROJECT_ID/hello_npm"]
   dir: 'flex-custom'
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - app
   - deploy
   - --quiet
-  - --image-url=gcr.io/brodiem-demo/hello_npm
+  - --image-url=gcr.io/$PROJECT_ID/hello_npm
   dir: 'flex-custom'
