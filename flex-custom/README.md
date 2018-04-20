@@ -98,7 +98,7 @@ The build trigger should now be setup. Whenever a change is pushed to any branch
 
 ### Triggering the cicd pipeline
 
-In the flex-custom folder, edit the index.js file to display a different message.
+Edit the index.js file in the flex-custom folder to display a different message.
 ```
 # Change "Hello World!" to "Hello Github!"
 sed -i 's/World/Github/' flex-custom/index.js
@@ -126,32 +126,36 @@ The page should now display "Hello Github! (custom runtime)".
 
 ### Clean up
 
-#### Disable the App Engine App
+#### Disable the App Engine app
 
-In the GCP Console Web UI, navigate to App Engine -> Settings, in the application settings tab click "Disable application" (type the app's ID to confirm).
+In the GCP Console Web UI, navigate to App Engine -> Settings, in the application settings tab click "Disable application" (type the app's ID to confirm). With the App Engine app now disabled, the app will not be accessible and you will not be billed.
 
-#### Delete the Google Cloud Storage buckets created by App Engine and Container Builder
+#### Delete the container images from Container Registry
+
+In the GCP Console Web UI, navigate to Container Registry -> Images -> hello_npm, select the container images to be deleted and click "Delete". Note, this will only delete the Docker manifests for each image, the individual image layer files will need to be delete from the appropriate GCS bucket.
+
+#### Delete the Google Cloud Storage buckets created by App Engine, Container Builder and Container Registry
 
 In the GCP Console Web UI, navigate to Storage -> Browser, select the appropriate buckets (listed below, replacing [PROJECT_ID] with your own project ID) and click "Delete".
+
+**CAUTION:** deleting the artifacts.[PROJECT_ID].appspot.com bucket will delete all container images (layers) from Google Container Registry.
 
 * artifacts.[PROJECT_ID].appspot.com
 * [PROJECT_ID]_cloudbuild
 * [PROJECT_ID].appspot.com
 * staging.[PROJECT_ID].appspot.com
 
-This should delete the app source code from Google Source Repositories and the container images from Google Container Registry (if not, instructions for deleting source repos and container images are below)
-
-#### Delete the Build Trigger
+#### Delete the build trigger
 
 In the GCP Console Web UI, navigate to Container Registry -> Build Triggers, click the menu on the right hand side of the appropriate trigger and click "Delete".
 
-#### Delete the Container Images
-
-In the GCP Console Web UI, navigate to Container Registry -> Images -> hello_npm, select the container images to be deleted and click "Delete". 
-
-#### Disconnect the Source Repository
+#### Disconnect the source repository
 
 In the GCP Console Web UI, navigate to Source Repositories -> Repositories, click the menu on the right hand side of the appropriate repo and click "Disconnect".
+
+#### Delete cloned repository and forked repository from github account
+
+Delete the repository that was cloned to your local environment. Delete the repository from your Github account.
 
 ## Authors
 
